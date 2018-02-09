@@ -27,16 +27,36 @@ int main(int argc, char *argv[])
     char buffer[BUFFER_LEN] = { 0 };
     char command[BUFFER_LEN] = { 0 };
     char arg[BUFFER_LEN] = { 0 };
-
+    char *strtok(char *str, const char *delim);
     // Parse the commands provided using argc and argv
 
     // Perform an infinite loop getting command input from users
     while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
     {
         // Perform string tokenization to get the command and argument
-
+        
         // Check the command and execute the operations for each command
         // cd command -- change the current directory
+        char* token = strtok(buffer, " \n");
+		int i = 0;
+		while (token){
+			printf("%s \n", token);
+			if (i == 0) {
+				strcpy(command, token);
+			}
+			else {
+				strcpy(arg, token);
+			}
+			i++;
+
+			token = strtok(NULL, " ");
+	    }
+    
+		// tests for the splitting of commands and arguments
+		printf("Command:%s", command);
+		printf("\n");
+        printf("argument:%s", arg);
+
         if (strcmp(command, "cd") == 0)
         {
             // your code here
@@ -50,11 +70,16 @@ int main(int argc, char *argv[])
             return EXIT_SUCCESS;
         }
 
+        else if (strcmp(command, "help") == 0){
+            
+        }
         // Unsupported command
         else
         {
             fputs("Unsupported command, use help to display the manual\n", stderr);
         }
+
+        
     }
     return EXIT_SUCCESS;
 }
